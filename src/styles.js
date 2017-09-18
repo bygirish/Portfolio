@@ -24,8 +24,8 @@ export default {
 
   dateStyle: {
     fontSize: 18,
-    fontFamily: 'avenir',
-    color: '#19B5FE',
+    fontFamily: appstyleguide.FONT_STYLE,
+    color: appstyleguide.APP_COLOR,
     alignSelf: 'flex-start'
   },
 
@@ -37,7 +37,7 @@ export default {
 
   uploadButtonStyle: {
     borderRadius: 10,
-    backgroundColor: '#3498db',
+    backgroundColor: appstyleguide.UPLOAD_BUTTON_COLOR,
     padding: 10,
     alignItems: 'center',
     width: DEVICE_WIDTH * 0.4
@@ -46,7 +46,7 @@ export default {
   submitButtonStyle: {
     marginTop: 20,
     height: 40,
-    backgroundColor: '#2980b9',
+    backgroundColor: appstyleguide.SUBMIT_BUTTON_COLOR,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 15
