@@ -19,7 +19,7 @@ export default class Input extends Component {
         placeholder = ""
         autoCorrect = { false }
         autoCapitalize = 'none'
-        style = { { flex: 1, height: 40, color: '#19B5FE', fontWeight: 'bold', alignSelf: 'flex-end', flexDirection: 'row' } }
+        style = { { flex: 1, height: 45, color: '#19B5FE', alignSelf: 'flex-end', flexDirection: 'row', fontFamily: 'avenir', fontSize: 18 } }
         onChangeText = { this.props.onChangeText }
         value = { this.props.value }
         selectionColor = '#19B5FE'

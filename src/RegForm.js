@@ -4,6 +4,7 @@ import { AppRegistry, Text, Button, View, Dimensions, Alert, Image, TouchableWit
 import { Actions, ActionConst } from 'react-native-router-flux';
 import ImagePicker  from 'react-native-image-crop-picker';
 import DatePicker from 'react-native-datepicker';
+import { Icon } from 'native-base';
 
 import styles from './styles';
 import Input from './../components/Input';
@@ -26,13 +27,35 @@ export default class RegForm extends Component {
       city: '',
       state: '',
       addressLine1: '',
-      addressLine2: ''
+      addressLine2: '',
+      showOptions: false,
+      buttonText: 'Upload Picture'
     };
 
   }
 
   showSummary = () => {
-    Actions.Summary(this.state);
+    if( this.state.firstName == '')
+      Alert.alert('','Enter First Name');
+      else if( this.state.lastName == '')
+        Alert.alert('','Enter Last Name');
+        else if( this.state.dob == 'Choose Date')
+          Alert.alert('','Select Date');
+          else if( this.state.addressLine1 == '')
+            Alert.alert('','Enter AddressLine1');
+
+            else if( this.state.city == '')
+              Alert.alert('','Enter City');
+              else if( this.state.state == '')
+                Alert.alert('','Enter State');
+                else if( this.state.country == '')
+                  Alert.alert('','Enter Country');
+                  else if( this.state.buttonText == 'Upload Picture')
+                    Alert.alert('','Upload Picture');
+      else {
+        Actions.Summary(this.state);
+      }
+
   }
 
   showCamera = () => {
@@ -46,12 +69,10 @@ export default class RegForm extends Component {
       compressImageQuality: 1,
       }).then(image => {
         console.log("imageProperties from Camera - ", image);
-        this.setState({imagePath: image.path});
+        this.setState({imagePath: image.path, buttonText: 'Uploaded', showOptions: false });
     })
     .catch(err => {
       console.log(err);
-      if(err == "Error: Cannot find image data")
-      Alert.alert("Error","Upload correct format");
     });
 
   }
@@ -60,18 +81,16 @@ export default class RegForm extends Component {
   showGallery = () => {
 
     ImagePicker.openPicker({
-      width: Dimensions.get('window').height,
-      height: Dimensions.get('window').height,
+      width: DEVICE_HEIGHT,
+      height: DEVICE_HEIGHT,
       includeBase64: true,
       cropping: true
       }).then(image => {
       console.log("imageProperties from Gallery - ", image);
-      this.setState({imagePath: image.path});
+      this.setState({imagePath: image.path, buttonText: 'Uploaded', showOptions: false });
     })
     .catch(err => {
       console.log(err);
-      if(err == "Error: Cannot find image data")
-      Alert.alert("Error","Upload correct format");
     });
 
   }
@@ -84,14 +103,16 @@ export default class RegForm extends Component {
         maxDate: new Date()
       });
       if (action == DatePickerAndroid.dismissedAction) {
-        year="1994";
-        month=0;
-        day="9";
+
+        year=new Date().getFullYear();
+        month=new Date().getMonth();
+        day=new Date().getDate();
       }
       console.log("actionCalender", action);
 
+    if(month != "")
     month = month + 1;
-    if (month < 10)
+    if (month < 10 && month != "")
     month = "0"+month;
     if (day<10)
     day = "0"+day;
@@ -108,7 +129,7 @@ export default class RegForm extends Component {
 
     return (
       <View style = { styles.container }>
-        <ScrollView style = { styles.content }>
+        <ScrollView keyboardShouldPersistTaps = 'always' showsVerticalScrollIndicator = { false } >
 
           <View style = {{ flexDirection: 'row', alignItems: 'center', flex: 1 }} >
             <Text style = { styles.textStyle }>First Name :</Text>
@@ -131,12 +152,12 @@ export default class RegForm extends Component {
             <TouchableWithoutFeedback
                 onPress={this.showPicker}>
                 <View style={{ flex: 1, height: 30,  justifyContent: 'flex-end'}}>
-                <Text style={{ fontSize: 15, fontFamily: 'avenir', alignSelf: 'flex-start', color: '#19B5FE'}}>{this.state.dob}</Text>
+                <Text style={{ fontSize: 16, fontFamily: 'avenirlight', alignSelf: 'flex-start', color: '#19B5FE'}}>{this.state.dob}</Text>
                 </View>
             </TouchableWithoutFeedback>
           </View>
 
-        <View style = {{ flexDirection: 'row', alignItems: 'center', marginTop: 10}} >
+        <View style = {{ flexDirection: 'row', alignItems: 'center', marginTop: 15}} >
             <Text style = {{ ...styles.textStyle, paddingTop: 15 }}>Gender :</Text>
             <Picker
                 selectedValue={this.state.gender}
@@ -188,14 +209,36 @@ export default class RegForm extends Component {
             />
           </View>
 
-          <TouchableOpacity onPress = { this.showCamera } style = {{ backgroundColor: '#19B5FE', padding: 10, width: DEVICE_WIDTH * 0.4 }}>
-            <Text style = {{ fontFamily: 'avenir',
-            fontSize: 16, color: 'white', alignSelf: 'center'}}> Upload Picture </Text>
-          </TouchableOpacity>
+          <View style = {{ flexDirection: 'row', alignItems: 'center' }}>
+            <TouchableOpacity onPress = { () => this.setState({ showOptions: !this.state.showOptions }) } style = {{  borderRadius: 10, backgroundColor: '#3498db', padding: 10, width: DEVICE_WIDTH * 0.4 }}>
+              <Text style = {{ fontFamily: 'avenir',
+              fontSize: 16, color: 'white', alignSelf: 'center', }}> {this.state.buttonText} </Text>
+            </TouchableOpacity>
+         {
+           this.state.showOptions ?
+          <View style = {{ flexDirection: 'row', alignItems: 'center' }}>
+          <TouchableOpacity onPress = { this.showCamera } >
+          <Icon name = 'camera' style = {{ color: '#2C3E50', marginLeft: 30, marginRight: 20 }} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress = { this.showGallery } >
+          <Icon name = 'images' style = {{ color: '#2C3E50' }} />
+            </TouchableOpacity>
+          </View> : <Text/>
+        }
+
+          </View>
+
+
           <View style={{margin: 10}} />
-          <Button onPress = { this.showSummary } title = 'Submit' color = '#19B5FE'  />
-          <View style={{margin: 20}} />
+
+          <TouchableOpacity onPress = { this.showSummary }  style={{ height: 40, backgroundColor: '#2980b9', justifyContent: 'center', alignItems: 'center', borderRadius: 15 }}>
+              <Text style = {{ fontFamily: 'avenirlight',
+              fontSize: 16, color: 'white' }}>SUBMIT</Text>
+          </TouchableOpacity>
+
         </ScrollView>
+
+
       </View>
     );
   }
