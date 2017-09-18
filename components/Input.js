@@ -1,31 +1,33 @@
 import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View,
-  TextInput
-} from 'react-native';
+import { Text, View, TextInput } from 'react-native';
+import * as appstyleguide from './../appstyleguide';
 
 export default class Input extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
   }
 
-  render(){
+  render() {
+
     return(
       <TextInput
         placeholder = ""
         autoCorrect = { false }
         autoCapitalize = 'none'
-        style = { { flex: 1, height: 45, color: '#19B5FE', alignSelf: 'flex-end', flexDirection: 'row', fontFamily: 'avenir', fontSize: 18 } }
+        style = {{  flex: 1,
+                    height: 45,
+                    color: appstyleguide.APP_COLOR,
+                    fontFamily: appstyleguide.FONT_STYLE,
+                    fontSize: 18
+                }}
         onChangeText = { this.props.onChangeText }
         value = { this.props.value }
-        selectionColor = '#19B5FE'
-        underlineColorAndroid = '#19B5FE'
+        selectionColor = { appstyleguide.APP_COLOR }
+        underlineColorAndroid = { appstyleguide.APP_COLOR }
       />
     );
+
   }
 
 }

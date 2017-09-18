@@ -1,19 +1,85 @@
 
+import * as appstyleguide from './../appstyleguide';
+import { DEVICE_HEIGHT, DEVICE_WIDTH } from './../utils';
+
 export default {
 
   container: {
     flex: 1,
-    backgroundColor: '#ECF0F1',
+    backgroundColor: appstyleguide.APP_BACKGROUND_COLOR,
     padding: 20,
     marginBottom: 0
   },
 
+  labelContainerStyle: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+
   textStyle : {
-    fontFamily: 'avenir',
+    fontFamily: appstyleguide.FONT_STYLE,
     fontSize: 18,
-    alignSelf: 'flex-start',
     flex: 1,
-    paddingTop: 15
-  }
+  },
+
+  dateStyle: {
+    fontSize: 18,
+    fontFamily: 'avenir',
+    color: '#19B5FE',
+    alignSelf: 'flex-start'
+  },
+
+  buttonTextStyle: {
+    fontFamily: appstyleguide.FONT_STYLE,
+    fontSize: 16,
+    color: 'white'
+  },
+
+  uploadButtonStyle: {
+    borderRadius: 10,
+    backgroundColor: '#3498db',
+    padding: 10,
+    alignItems: 'center',
+    width: DEVICE_WIDTH * 0.4
+  },
+
+  submitButtonStyle: {
+    marginTop: 20,
+    height: 40,
+    backgroundColor: '#2980b9',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 15
+  },
+
+  summaryContainer: {
+    backgroundColor: appstyleguide.SUMMARY_BACKGROUND_COLOR,
+    flex: 1
+  },
+
+  headingStyle: {
+    fontFamily: appstyleguide.FONT_STYLE,
+    fontSize: 20,
+    padding: 20,
+    alignSelf: 'center'
+  },
+
+  imageStyle: {
+    width: DEVICE_WIDTH * 0.5,
+    height: DEVICE_WIDTH * 0.5,
+    borderRadius: 10,
+    alignSelf: 'center'
+  },
+
+  summaryTextStyle: {
+    fontFamily: appstyleguide.FONT_STYLE,
+    fontSize: 16,
+    color: '#446CB3'
+  },
+
+  summaryLabelStyle: {
+    fontFamily: appstyleguide.FONT_STYLE,
+    fontSize: 16,
+  },
 
 }
