@@ -4,7 +4,13 @@
 
 <img src = "./demo.gif" />
 
-##### This project contains a simple react-native form that lets user input values and generate its completed form on the summary page.
+*-This project contains a simple react-native form that lets user input values and generate its completed form on the summary page.-*
+
+#### Features involved: 
+* Getting input from user using TextInput
+* Native DatePicker is used for getting Date
+* ImagePicker module integrated for capturing pics and retrieving pics from gallery.
+* Cropping, resizing and rotation of pics is possible
 
 ## Getting Started
 
